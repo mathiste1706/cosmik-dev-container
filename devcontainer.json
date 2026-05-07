@@ -1,0 +1,36 @@
+{
+  "name": "gepetto-devcontainer",
+
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+
+  "initializeCommand": "xhost +local:docker",
+
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "XAUTHORITY": "${localEnv:XAUTHORITY}",
+    "NVIDIA_VISIBLE_DEVICES": "all",
+    "NVIDIA_DRIVER_CAPABILITIES": "all"
+  },
+
+  "remoteUser": "root",
+  "privileged": true,
+
+  "workspaceFolder": "/root/workspace/RT-COSMIK",
+
+  "mounts": [
+    {
+      "source": "${localWorkspaceFolder}/data/calib",
+      "target": "/root/workspace/RT-COSMIK/config/cam_params",
+      "type": "bind"
+    }
+  ],
+
+  "runArgs": [
+    "--gpus=all",
+    "--ipc=host",
+    "--net=host"
+  ]
+}
